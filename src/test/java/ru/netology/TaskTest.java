@@ -10,24 +10,22 @@ class TaskTest {
     @Test
     public void shouldTitleMatch() {
 
-        SimpleTask simpleTask = new SimpleTask(15, "Написать ответ на запрос");
+        SimpleTask simpleTask = new SimpleTask(15, "Написать ответ на письмо");
 
-        simpleTask.matches("Написать ответ на запрос");
 
         boolean expected = true;
-        boolean actual = simpleTask.equals(simpleTask);
+        boolean actual = simpleTask.matches("Написать");
 
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
     public void shouldNotTitleMatch() {
-        SimpleTask simpleTask = new SimpleTask(15, "Написать ответ на запрос");
+        SimpleTask simpleTask = new SimpleTask(15, "Написать ответ на письмо");
 
-        simpleTask.matches("Позвонить родителям");
 
         boolean expected = false;
-        boolean actual = simpleTask.equals(simpleTask);
+        boolean actual = simpleTask.matches("Позвонить");
 
         Assertions.assertEquals(expected, actual);
 
@@ -35,13 +33,12 @@ class TaskTest {
 
     @Test
     public void shouldSubtasksMatch() {
-        String[] subtsaks = { "тетради", "карандаши", "ручки", "пенал" };
-        Epic epic = new Epic(5, subtsaks);
+        String[] subtsaks = {"Тетради", "Карандаши", "Ручки"};
+        Epic epic = new Epic(35, subtsaks);
 
-        epic.matches("пенал");
 
         boolean expected = true;
-        boolean actual = epic.equals(epic);
+        boolean actual = epic.matches("Карандаши");
 
         Assertions.assertEquals(expected, actual);
 
@@ -50,14 +47,12 @@ class TaskTest {
 
     @Test
     public void shouldNotSubtasksMatch() {
-        String[] subtsaks = { "тетради", "карандаши", "ручки", "пенал" };
-        Epic epic = new Epic(5, subtsaks);
-
-        epic.matches("линейка");
+        String[] subtsaks = {"Тетради", "Карандаши", "Ручки"};
+        Epic epic = new Epic(35, subtsaks);
 
 
         boolean expected = false;
-        boolean actual = epic.equals(epic);
+        boolean actual = epic.matches("Линейка");
 
         Assertions.assertEquals(expected, actual);
 
@@ -66,16 +61,15 @@ class TaskTest {
     @Test
     public void shouldOnlyTopicMatch() {
         Meeting meeting = new Meeting(
-                70,
-                "Устранение багов счетчика шагов",
-                "Шагомер версия 2.5",
-                "В четверг после обеда"
+                55,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
         );
 
-        meeting.matches("Устранение багов счетчика шагов");
 
         boolean expected = true;
-        boolean actual = meeting.equals(meeting);
+        boolean actual = meeting.matches("Выкатка");
 
         Assertions.assertEquals(expected, actual);
 
@@ -85,35 +79,15 @@ class TaskTest {
     @Test
     public void shouldOnlyProjectMatch() {
         Meeting meeting = new Meeting(
-                70,
-                "Устранение багов счетчика шагов",
-                "Шагомер версия 2.5",
-                "В четверг после обеда"
+                55,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
         );
 
-        meeting.matches("Шагомер версия 2.5");
 
         boolean expected = true;
-        boolean actual = meeting.equals(meeting);
-
-        Assertions.assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void shouldTopicAndProjectMatch() {
-        Meeting meeting = new Meeting(
-                70,
-                "Устранение багов счетчика шагов",
-                "Шагомер версия 2.5",
-                "В четверг после обеда"
-        );
-
-        meeting.matches("Устранение багов счетчика шагов");
-        meeting.matches("Шагомер версия 2.5");
-
-        boolean expected = true;
-        boolean actual = meeting.equals(meeting);
+        boolean actual = meeting.matches("Приложение");
 
         Assertions.assertEquals(expected, actual);
 
@@ -122,56 +96,15 @@ class TaskTest {
     @Test
     public void testTopicAndProjectNotMatch() {
         Meeting meeting = new Meeting(
-                70,
-                "Устранение багов счетчика шагов",
-                "Шагомер версия 2.5",
-                "В четверг после обеда"
+                55,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
         );
-
-        meeting.matches("Кривая веса");
-        meeting.matches("Худеем на 20 кг версия 3.0");
 
 
         boolean expected = false;
-        boolean actual = meeting.equals(meeting);
-
-        Assertions.assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void shouldMatchTopicNotProject() {
-        Meeting meeting = new Meeting(
-                70,
-                "Устранение багов счетчика шагов",
-                "Шагомер версия 2.5",
-                "В четверг после обеда"
-        );
-
-        meeting.matches("Устранение багов счетчика шагов");
-        meeting.matches("Худеем на 20 кг версия 3.0");
-
-        boolean expected = true;
-        boolean actual = meeting.equals(meeting);
-
-        Assertions.assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void sholdMatchProjectNotTopic() {
-        Meeting meeting = new Meeting(
-                70,
-                "Устранение багов счетчика шагов",
-                "Шагомер версия 2.5",
-                "В четверг после обеда"
-        );
-
-        meeting.matches("Кривая веса");
-        meeting.matches("Шагомер версия 2.5");
-
-        boolean expected = true;
-        boolean actual = meeting.equals(meeting);
+        boolean actual = meeting.matches("вторник");
 
         Assertions.assertEquals(expected, actual);
 
